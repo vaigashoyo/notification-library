@@ -130,6 +130,7 @@ mvn test -Dtest=ClassName#method # Run a single test method
 ## ✅ Things Claude Should Always Do
 
 - Mantener funciones pequeñas y con responsabilidad única
+- Utilizar gitflow para el manejo del repositorio git y gtihub.
 
 ---
 
