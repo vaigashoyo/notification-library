@@ -259,3 +259,69 @@ Record inmutable que representa una notificación.
 | SMS | Mock | `"mock-sms"` | Testing |
 | Push | Firebase | `"firebase"` | Producción |
 | Push | Mock | `"mock-push"` | Testing |
+
+---
+
+## Sobre este proyecto
+
+Este proyecto fue desarrollado en su totalidad por **Claude Code** (Claude Opus 4.6, 1M context) con la supervisión de **Guillermo David Loyo Gómez** ([@vaigashoyo](https://github.com/vaigashoyo)).
+
+### Herramientas de IA utilizadas
+
+- **Claude Code CLI** — Agente de desarrollo autónomo que escribió todo el código fuente, tests y documentación
+- **MCP (Model Context Protocol)** — Integración directa con la API de GitHub para crear el repositorio, gestionar branches y configurar el proyecto remoto
+- **Skills** — Sistema de habilidades especializadas que Claude Code consultó antes de cada fase:
+  - `java-fundamentals` — Sintaxis, OOP, records, sealed classes
+  - `java-concurrency` — CompletableFuture, virtual threads, ExecutorService
+  - `java-testing` — JUnit 5, Mockito, @ParameterizedTest, cobertura
+  - `java-docker` — Multi-stage builds, non-root user, JVM container settings
+  - `git-advanced-workflows` — Gitflow, branches, tags, merge strategies
+- **Contexto detallado (CLAUDE.md)** — Archivo de instrucciones del proyecto que define arquitectura, convenciones, patrones, catálogo de errores y restricciones. Claude Code lo consultó en cada decisión para mantener coherencia
+
+### Buenas practicas aplicadas
+
+**Arquitectura y Diseño**
+- Arquitectura Hexagonal (Ports & Adapters) con separación estricta entre dominio, aplicación e infraestructura
+- Principios SOLID aplicados en todas las capas
+- 4 patrones de diseño: Facade, Strategy, Factory, Adapter
+- Comunicación con el exterior exclusivamente mediante interfaces
+- Sealed classes en la jerarquía de excepciones para seguridad de tipos
+
+**Código**
+- Java 25 con features modernas: records, sealed classes, pattern matching, virtual threads
+- Records inmutables para modelos de dominio con copias defensivas
+- Funciones pequenas con responsabilidad unica
+- Sin frameworks — 100% Java puro
+- Configuración 100% mediante código (sin YAML/properties)
+
+**Asincronía**
+- CompletableFuture para envío no bloqueante
+- Virtual threads (Project Loom) para concurrencia ligera
+- Envío en lote con CompletableFuture.allOf()
+
+**Testing**
+- 86 tests unitarios con JUnit 5 y Mockito
+- @ParameterizedTest para validaciones de formato
+- Cobertura minima del 80% en services verificada con JaCoCo
+- Tests aislados con mocks, sin dependencias externas
+
+**Manejo de errores**
+- Catálogo estructurado de 18 códigos de error (V001-V010, S001-S006, C001-C002)
+- Distinción clara entre errores de validación, envío y configuración
+- Excepciones tipadas con sealed class hierarchy
+
+**Logging**
+- Log4j2 con logging detallado paso a paso en todo el flujo
+- Trazabilidad completa desde la recepción hasta el resultado
+
+**DevOps**
+- Dockerfile multi-stage optimizado (build + runtime)
+- Usuario non-root en el contenedor
+- JVM container-aware con flags de producción
+- Gitflow completo: main, develop, feature/*, release/*, tags
+
+**Control de versiones**
+- Gitflow con feature branches, release branch y tags semánticos
+- Commits atómicos con mensajes descriptivos (conventional commits)
+- Merge --no-ff para preservar historial de features
+- Branch `develop` como default para desarrollo continuo
